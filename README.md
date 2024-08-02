@@ -36,22 +36,19 @@ class IndexController
 }
 ```
 
-- Factory
+- New From Api Info
 
 ```php
 namespace App\Controller;
 
 use Hyperf\Di\Annotation\Inject;
-use Suyar\Umeng\UmengFactory;
+use Suyar\Umeng\Umeng;
 
 class IndexController
 {
-    #[Inject]
-    protected UmengFactory $umengFactory;
-
     public function index()
     {
-        $umeng = $this->umengFactory->create('apiKey', 'apiSecret');
+        $umeng = new Umeng('apiKey', 'apiSecret');
 
         return $umeng->uapp->getAllAppData();
     }

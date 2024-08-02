@@ -21,14 +21,9 @@ class UmengFactory
     {
         $config = $container->get(ConfigInterface::class);
 
-        return $this->create(
+        return new Umeng(
             (string) $config->get('umeng.api_key'),
             (string) $config->get('umeng.api_security'),
         );
-    }
-
-    public function create(string $apiKey, string $apiSecKey): Umeng
-    {
-        return new Umeng($apiKey, $apiSecKey);
     }
 }
