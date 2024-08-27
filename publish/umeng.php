@@ -12,6 +12,6 @@ declare(strict_types=1);
 use function Hyperf\Support\env;
 
 return [
-    'api_key' => env('UMENG_API_KEY'),
-    'api_security' => env('UMENG_API_SECURITY'),
+    'api_key' => (string) env('UMENG_API_KEY'),
+    'api_security' => (string) env('UMENG_API_SECURITY'),
 ];
