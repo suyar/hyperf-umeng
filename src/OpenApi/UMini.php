@@ -48,7 +48,7 @@ namespace Suyar\Umeng\OpenApi;
  * @method array getOverview(array $data) 获取应用概况数据
  * @method array getTotalUser(array $data) 获取应用的累计用户数
  */
-class Umini
+class UMini
 {
     public function __construct(protected Client $client)
     {

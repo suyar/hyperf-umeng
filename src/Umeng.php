@@ -15,24 +15,24 @@ namespace Suyar\Umeng;
 use Suyar\Umeng\OpenApi\AppTrack;
 use Suyar\Umeng\OpenApi\Client;
 use Suyar\Umeng\OpenApi\UApp;
-use Suyar\Umeng\OpenApi\Umini;
+use Suyar\Umeng\OpenApi\UMini;
 
 /**
  * 友盟统计分析-API.
  *
- * @property UApp $uapp
+ * @property UApp $uApp
  * @property AppTrack $appTrack
- * @property Umini $umini
+ * @property UMini $uMini
  */
 class Umeng
 {
     protected Client $client;
 
-    protected UApp $uapp;
+    protected UApp $uApp;
 
-    protected AppTrack $apptrack;
+    protected AppTrack $appTrack;
 
-    protected Umini $umini;
+    protected UMini $uMini;
 
     public function __construct(protected string $apiKey, protected string $apiSecurity)
     {
@@ -42,9 +42,9 @@ class Umeng
     public function __get(string $name)
     {
         return match ($name) {
-            'uapp' => $this->uapp ??= new UApp($this->client),
-            'appTrack' => $this->apptrack ??= new AppTrack($this->client),
-            'umini' => $this->umini ??= new Umini($this->client),
+            'uApp' => $this->uApp ??= new UApp($this->client),
+            'appTrack' => $this->appTrack ??= new AppTrack($this->client),
+            'uMini' => $this->uMini ??= new UMini($this->client),
         };
     }
 }
