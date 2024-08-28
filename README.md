@@ -58,9 +58,9 @@ class IndexController
 ## Methods
 
 ```php
-$umeng->uapp; // U-App-移动统计.
+$umeng->uApp; // U-App-移动统计.
 $umeng->appTrack; // AppTrack-移动广告监测.
-$umeng->umini; // U-MiniProgram-小程序统计.
+$umeng->uMini; // U-MiniProgram-小程序统计.
 ```
 
 Refer:
