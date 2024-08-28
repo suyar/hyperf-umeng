@@ -22,12 +22,12 @@ php bin/hyperf.php vendor:publish suyar/hyperf-umeng
 namespace App\Controller;
 
 use Hyperf\Di\Annotation\Inject;
-use Suyar\Umeng\Umeng;
+use Suyar\UMeng\Client;
 
 class IndexController
 {
     #[Inject]
-    protected Umeng $umeng;
+    protected Client $umeng;
 
     public function index()
     {
@@ -42,13 +42,13 @@ class IndexController
 namespace App\Controller;
 
 use Hyperf\Di\Annotation\Inject;
-use Suyar\Umeng\Umeng;
+use Suyar\UMeng\Client;
 
 class IndexController
 {
     public function index()
     {
-        $umeng = new Umeng('apiKey', 'apiSecret');
+        $umeng = new Client('apiKey', 'apiSecret');
 
         return $umeng->uapp->getAllAppData();
     }

@@ -10,12 +10,12 @@ declare(strict_types=1);
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
 
-namespace Suyar\Umeng;
+namespace Suyar\UMeng;
 
-use Suyar\Umeng\OpenApi\AppTrack;
-use Suyar\Umeng\OpenApi\Client;
-use Suyar\Umeng\OpenApi\UApp;
-use Suyar\Umeng\OpenApi\UMini;
+use Suyar\UMeng\OpenApi\AppTrack;
+use Suyar\UMeng\OpenApi\Http;
+use Suyar\UMeng\OpenApi\UApp;
+use Suyar\UMeng\OpenApi\UMini;
 
 /**
  * 友盟统计分析-API.
@@ -24,9 +24,9 @@ use Suyar\Umeng\OpenApi\UMini;
  * @property AppTrack $appTrack
  * @property UMini $uMini
  */
-class Umeng
+class Client
 {
-    protected Client $client;
+    protected Http $http;
 
     protected UApp $uApp;
 
@@ -36,15 +36,15 @@ class Umeng
 
     public function __construct(protected string $apiKey, protected string $apiSecurity)
     {
-        $this->client = new Client($this->apiKey, $this->apiSecurity);
+        $this->http = new Http($this->apiKey, $this->apiSecurity);
     }
 
     public function __get(string $name)
     {
         return match ($name) {
-            'uApp' => $this->uApp ??= new UApp($this->client),
-            'appTrack' => $this->appTrack ??= new AppTrack($this->client),
-            'uMini' => $this->uMini ??= new UMini($this->client),
+            'uApp' => $this->uApp ??= new UApp($this->http),
+            'appTrack' => $this->appTrack ??= new AppTrack($this->http),
+            'uMini' => $this->uMini ??= new UMini($this->http),
         };
     }
 }

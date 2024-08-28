@@ -10,18 +10,18 @@ declare(strict_types=1);
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
 
-namespace Suyar\Umeng;
+namespace Suyar\UMeng;
 
 use Hyperf\Contract\ConfigInterface;
 use Psr\Container\ContainerInterface;
 
-class UmengFactory
+class ClientFactory
 {
-    public function __invoke(ContainerInterface $container): Umeng
+    public function __invoke(ContainerInterface $container): Client
     {
         $config = $container->get(ConfigInterface::class);
 
-        return new Umeng(
+        return new Client(
             (string) $config->get('umeng.api_key'),
             (string) $config->get('umeng.api_security'),
         );

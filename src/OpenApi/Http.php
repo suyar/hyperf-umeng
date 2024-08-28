@@ -10,25 +10,28 @@ declare(strict_types=1);
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
 
-namespace Suyar\Umeng\OpenApi;
+namespace Suyar\UMeng\OpenApi;
 
 use GuzzleHttp\Exception\RequestException;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Guzzle\ClientFactory;
-use Suyar\Umeng\Excention\UmengException;
+use Suyar\UMeng\Excention\UMengException;
 use Throwable;
 
-class Client
+class Http
 {
+    protected const GATEWAY = 'https://gateway.open.umeng.com/openapi/';
+
     #[Inject]
     protected ClientFactory $clientFactory;
-
-    protected string $gateway = 'https://gateway.open.umeng.com/openapi/';
 
     public function __construct(protected string $apiKey, protected string $apiSecurity)
     {
     }
 
+    /**
+     * @throws UMengException
+     */
     public function request(int|string $version, string $namespace, string $function, array $params = []): array
     {
         $path = "param2/{$version}/{$namespace}/{$function}/{$this->apiKey}";
@@ -36,7 +39,7 @@ class Client
         $params['_aop_signature'] = $this->signature($path, $params);
 
         $client = $this->clientFactory->create([
-            'base_uri' => $this->gateway,
+            'base_uri' => self::GATEWAY,
             'timeout' => 30,
         ]);
 
@@ -50,11 +53,11 @@ class Client
             $result = json_decode((string) $response->getBody(), true);
 
             if (! is_array($result)) {
-                throw new UmengException(sprintf($failMessage, 'empty response'));
+                throw new UMengException(sprintf($failMessage, 'empty response'));
             }
 
             if (! empty($result['error_message'])) {
-                throw new UmengException(
+                throw new UMengException(
                     sprintf($failMessage, $result['error_message']),
                     strval($result['error_message']),
                     strval($result['error_code'] ?? ''),
@@ -68,7 +71,7 @@ class Client
             if ($response = $e->getResponse()) {
                 $result = json_decode((string) $response->getBody(), true);
                 if (! empty($result['error_message'])) {
-                    throw new UmengException(
+                    throw new UMengException(
                         sprintf($failMessage, $result['error_message']),
                         strval($result['error_message']),
                         strval($result['error_code'] ?? ''),
@@ -78,9 +81,9 @@ class Client
                 }
             }
 
-            throw new UmengException(sprintf($failMessage, $e->getMessage()));
+            throw new UMengException(sprintf($failMessage, $e->getMessage()));
         } catch (Throwable $t) {
-            throw new UmengException(sprintf($failMessage, $t->getMessage()));
+            throw new UMengException(sprintf($failMessage, $t->getMessage()));
         }
     }
 

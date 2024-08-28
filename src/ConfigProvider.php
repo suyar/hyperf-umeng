@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
 
-namespace Suyar\Umeng;
+namespace Suyar\UMeng;
 
 class ConfigProvider
 {
@@ -25,7 +25,7 @@ class ConfigProvider
                 ],
             ],
             'dependencies' => [
-                Umeng::class => UmengFactory::class,
+                Client::class => ClientFactory::class,
             ],
             'publish' => [
                 [

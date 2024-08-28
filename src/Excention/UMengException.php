@@ -10,11 +10,11 @@ declare(strict_types=1);
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
 
-namespace Suyar\Umeng\Excention;
+namespace Suyar\UMeng\Excention;
 
 use Exception;
 
-class UmengException extends Exception
+class UMengException extends Exception
 {
     public function __construct(
         string $message = '',

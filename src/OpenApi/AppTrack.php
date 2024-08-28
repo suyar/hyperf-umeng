@@ -10,7 +10,9 @@ declare(strict_types=1);
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
 
-namespace Suyar\Umeng\OpenApi;
+namespace Suyar\UMeng\OpenApi;
+
+use Suyar\UMeng\Excention\UMengException;
 
 /**
  * AppTrack-移动广告监测.
@@ -31,10 +33,13 @@ namespace Suyar\Umeng\OpenApi;
  */
 class AppTrack
 {
-    public function __construct(protected Client $client)
+    public function __construct(protected Http $http)
     {
     }
 
+    /**
+     * @throws UMengException
+     */
     public function __call(string $name, array $arguments)
     {
         [$version, $function] = match ($name) {
@@ -56,8 +61,11 @@ class AppTrack
         return $this->request($version, $function, is_array($data) ? $data : []);
     }
 
+    /**
+     * @throws UMengException
+     */
     protected function request(int|string $version, string $function, array $params = []): array
     {
-        return $this->client->request($version, 'com.umeng.apptrack', $function, $params);
+        return $this->http->request($version, 'com.umeng.apptrack', $function, $params);
     }
 }

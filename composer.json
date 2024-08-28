@@ -1,6 +1,6 @@
 {
     "name": "suyar/hyperf-umeng",
-    "description": "Umeng OpenApi.",
+    "description": "UMeng OpenApi.",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Suyar\\Umeng\\": "src/"
+            "Suyar\\UMeng\\": "src/"
         }
     },
     "config": {
@@ -42,7 +42,7 @@
             "dev-main": "3.1-dev"
         },
         "hyperf": {
-            "config": "Suyar\\Umeng\\ConfigProvider"
+            "config": "Suyar\\UMeng\\ConfigProvider"
         }
     }
 }

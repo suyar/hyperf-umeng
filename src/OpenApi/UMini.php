@@ -10,7 +10,9 @@ declare(strict_types=1);
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
 
-namespace Suyar\Umeng\OpenApi;
+namespace Suyar\UMeng\OpenApi;
+
+use Suyar\UMeng\Excention\UMengException;
 
 /**
  * U-MiniProgram-小程序统计.
@@ -50,10 +52,13 @@ namespace Suyar\Umeng\OpenApi;
  */
 class UMini
 {
-    public function __construct(protected Client $client)
+    public function __construct(protected Http $http)
     {
     }
 
+    /**
+     * @throws UMengException
+     */
     public function __call(string $name, array $arguments)
     {
         [$version, $function] = match ($name) {
@@ -94,8 +99,11 @@ class UMini
         return $this->request($version, $function, is_array($data) ? $data : []);
     }
 
+    /**
+     * @throws UMengException
+     */
     protected function request(int|string $version, string $function, array $params = []): array
     {
-        return $this->client->request($version, 'com.umeng.umini', $function, $params);
+        return $this->http->request($version, 'com.umeng.umini', $function, $params);
     }
 }
