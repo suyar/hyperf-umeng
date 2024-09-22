@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace Suyar\UMeng;
 
 use Suyar\UMeng\OpenApi\AppTrack;
-use Suyar\UMeng\OpenApi\Http;
 use Suyar\UMeng\OpenApi\UApp;
 use Suyar\UMeng\OpenApi\UMini;
+use Suyar\UMeng\Transport\Http;
 
 /**
  * 友盟统计分析-API.
@@ -26,17 +26,14 @@ use Suyar\UMeng\OpenApi\UMini;
  */
 class Client
 {
-    protected Http $http;
-
     protected UApp $uApp;
 
     protected AppTrack $appTrack;
 
     protected UMini $uMini;
 
-    public function __construct(protected string $apiKey, protected string $apiSecurity)
+    public function __construct(protected Http $http)
     {
-        $this->http = new Http($this->apiKey, $this->apiSecurity);
     }
 
     public function __get(string $name)

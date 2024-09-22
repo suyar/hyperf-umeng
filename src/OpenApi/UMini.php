@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Suyar\UMeng\OpenApi;
 
 use Suyar\UMeng\Excention\UMengException;
+use Suyar\UMeng\Transport\Http;
 
 /**
  * U-MiniProgram-小程序统计.

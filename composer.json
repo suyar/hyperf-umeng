@@ -16,26 +16,33 @@
     ],
     "require": {
         "php": ">=8.1",
+        "guzzlehttp/guzzle": "^7.0",
         "hyperf/contract": "~3.1.0",
-        "hyperf/di": "~3.1.0",
-        "hyperf/guzzle": "~3.1.0",
         "hyperf/support": "~3.1.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phpstan/phpstan": "^1.0"
+        "hyperf/testing": "~3.1.0",
+        "phpstan/phpstan": "^1.0",
+        "swoole/ide-helper": "^5.0"
     },
     "autoload": {
         "psr-4": {
             "Suyar\\UMeng\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        }
+    },
     "config": {
         "sort-packages": true
     },
     "scripts": {
-        "analyse": "phpstan analyse --memory-limit 1024M -l 0 ./src",
-        "cs-fix": "php-cs-fixer fix $1"
+        "test": "co-phpunit --prepend tests/bootstrap.php --colors=always",
+        "cs-fix": "php-cs-fixer fix $1",
+        "analyse": "phpstan analyse --memory-limit 1000M"
     },
     "extra": {
         "branch-alias": {

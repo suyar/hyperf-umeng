@@ -1,4 +1,4 @@
-# 友盟统计分析 OpenApi
+# UMeng Analytics OpenApi
 
 [![Latest Stable Version](https://img.shields.io/packagist/v/suyar/hyperf-umeng)](https://packagist.org/packages/suyar/hyperf-umeng)
 [![Total Downloads](https://img.shields.io/packagist/dt/suyar/hyperf-umeng)](https://packagist.org/packages/suyar/hyperf-umeng)
@@ -6,17 +6,46 @@
 
 ## Installation
 
+Requirements:
+
+- php: >=8.1
+- ext-swoole: >=5.0 (SWOOLE_HOOK_NATIVE_CURL)
+- Composer >= 2.0
+
 ```shell
 composer require suyar/hyperf-umeng
 ```
 
 ## Usage
 
-- Inject
+Publish the files of the clickhouse component:
 
 ```shell
 php bin/hyperf.php vendor:publish suyar/hyperf-umeng
 ```
+
+Modify your config file `config/autoload/umeng.php`:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use function Hyperf\Support\env;
+
+return [
+    'api_key' => (string) env('UMENG_API_KEY'),
+    'api_security' => (string) env('UMENG_API_SECURITY'),
+    // Guzzle max curl handles.
+    'max_handles' => 10,
+    // Guzzle default options.
+    'options' => [
+        'timeout' => 0,
+    ],
+];
+```
+
+Using the `default` ApiKey and ApiSecurity by `[Inject]`:
 
 ```php
 namespace App\Controller;
@@ -27,30 +56,33 @@ use Suyar\UMeng\Client;
 class IndexController
 {
     #[Inject]
-    protected Client $umeng;
+    protected Client $client;
 
     public function index()
     {
-        return $this->umeng->uapp->getAllAppData();
+        return $this->client->uapp->getAppCount();
     }
 }
 ```
 
-- New From Api Info
+Or use factory:
 
 ```php
 namespace App\Controller;
 
 use Hyperf\Di\Annotation\Inject;
-use Suyar\UMeng\Client;
+use Suyar\UMeng\Client;use Suyar\UMeng\ClientFactory;
 
 class IndexController
 {
+    #[Inject]
+    protected ClientFactory $clientFactory;
+
     public function index()
     {
-        $umeng = new Client('apiKey', 'apiSecret');
+        $client = $this->clientFactory->get('apiKey', 'apiSecret');
 
-        return $umeng->uapp->getAllAppData();
+        return $client->uapp->getAppCount();
     }
 }
 ```
@@ -64,10 +96,14 @@ $umeng->uMini; // U-MiniProgram-小程序统计.
 ```
 
 Refer:
-  - [如何使用Open API](https://developer.umeng.com/open-api/guide)
-  - [U-App-移动统计](https://developer.umeng.com/open-api/ns/com.umeng.uapp/apply)
-  - [AppTrack-移动广告监测](https://developer.umeng.com/open-api/ns/com.umeng.apptrack/apply)
-  - [U-MiniProgram-小程序统计](https://developer.umeng.com/open-api/ns/com.umeng.umini/apply)
+  - [How to use Open API](https://developer.umeng.com/open-api/guide)
+  - [U-App](https://developer.umeng.com/open-api/ns/com.umeng.uapp/apply)
+  - [AppTrack](https://developer.umeng.com/open-api/ns/com.umeng.apptrack/apply)
+  - [U-MiniProgram](https://developer.umeng.com/open-api/ns/com.umeng.umini/apply)
+
+## Via JetBrains
+
+[![](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)](https://www.jetbrains.com/?from=https://github.com/suyar)
 
 ## Contact
 
@@ -79,11 +115,11 @@ Refer:
 
 ## Donate 🍵
 
-如果你正在使用这个项目或者喜欢这个项目的，可以通过以下方式支持我：
+If you are using this program or like it, you can support me in the following ways:
 
-- Star、Fork、Watch 一键三连 🚀
-- 通过微信、支付宝一次性捐款 ❤
+- Star、Fork、Watch 🚀
+- WechatPay、AliPay ❤
 
-|                                         微信                                          |                                         支付宝                                         |
-|:-----------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|
-| <img src="https://ooo.0x0.ooo/2024/07/10/OPsOGq.png" alt="Wechat QRcode" width=170> | <img src="https://ooo.0x0.ooo/2024/07/10/OPsMev.png" alt="AliPay QRcode" width=170> |
+|                                        WechatPay                                         |                                       AliPay                                        |
+|:----------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|
+|   <img src="https://ooo.0x0.ooo/2024/07/10/OPsOGq.png" alt="Wechat QRcode" width=170>    | <img src="https://ooo.0x0.ooo/2024/07/10/OPsMev.png" alt="AliPay QRcode" width=170> |

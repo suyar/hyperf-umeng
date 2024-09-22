@@ -9,15 +9,15 @@ declare(strict_types=1);
  * @contact  su@zorzz.com
  * @license  https://github.com/suyar/hyperf-umeng/blob/master/LICENSE
  */
-use function Hyperf\Support\env;
 
-return [
-    'api_key' => (string) env('UMENG_API_KEY'),
-    'api_security' => (string) env('UMENG_API_SECURITY'),
-    // Guzzle max curl handles.
-    'max_handles' => 10,
-    // Guzzle default options.
-    'options' => [
-        'timeout' => 0,
-    ],
-];
+namespace Test\Cases;
+
+use PHPUnit\Framework\TestCase;
+
+/**
+ * @internal
+ * @coversNothing
+ */
+class AbstractTestCase extends TestCase
+{
+}
