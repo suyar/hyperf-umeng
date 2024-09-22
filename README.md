@@ -90,9 +90,9 @@ class IndexController
 ## Methods
 
 ```php
-$umeng->uApp; // U-App-移动统计.
-$umeng->appTrack; // AppTrack-移动广告监测.
-$umeng->uMini; // U-MiniProgram-小程序统计.
+$umeng->uApp; // U-App
+$umeng->appTrack; // AppTrack
+$umeng->uMini; // U-MiniProgram
 ```
 
 Refer:
